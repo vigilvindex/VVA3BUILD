@@ -2,7 +2,7 @@
 echo "STARTING BUILD"
 set src=".\src"
 set maps=".\maps"
-set build=".\dist\VVA3RUSH"
+set build=".\dist\MISSIONNAME"
 set mission="mission.sqm"
 FOR %%G IN (ALTIS,ENOCH,MALDEN,STRATIS,TANOA) DO (
 IF EXIST %build%.%%G RMDIR /S /Q %build%.%%G
