@@ -15,3 +15,8 @@ A batch script for building an Arma 3 mission for multiple maps.
 ## ATTRIBUTION & THANKS
 
 * [Winseros for PBOManager](https://github.com/winseros/PBOManager)
+* [Inimitable for SQF-Minifier](https://github.com/inimitable/sqf-minifier)
+
+## Requirements
+
+* [Python](https://www.python.org/downloads/)
