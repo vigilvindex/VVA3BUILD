@@ -5,7 +5,12 @@ from pathlib import Path
 from re import sub, compile, DOTALL
 import sre_constants
 
-INLINE_COMMENT = compile('//+[^\n]+')
+BRACKETSPACE = ('{\s')
+COLONSPACE = (';\s')
+DOUBLESPACE = compile('\s\s')
+TABS = compile('\t')
+URLS = compile('(?i)\b((?:https?:(?:/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org)/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org)\b/?(?!@)))')
+INLINE_COMMENT = compile('/+[^\n]+')
 BLOCK_COMMENT = compile('/\*.*?\*/', DOTALL)
 NOT_IN_QUOTES_REGEX = r"(?=([^\"\\]*(\\.|\"([^\"\\]*\\.)*[^\"\\]*\"))*[^\"]*$)"
 
@@ -21,8 +26,13 @@ def load_code(path_or_code: (Path, str)):
 
 def strip_comments(text: str) -> str:
     """Removes SQF-style comments and block comments."""
-    text = sub(INLINE_COMMENT, '', text)
+    text = sub(TABS, '', text)
+    text = sub(URLS, '', text)
     text = sub(BLOCK_COMMENT, '', text)
+    text = sub(INLINE_COMMENT, '', text)
+    text = sub(DOUBLESPACE, ' ', text)
+    text = sub(COLONSPACE, ';', text)
+    text = sub(BRACKETSPACE, '{', text)
     return text
 
 
